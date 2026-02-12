@@ -23,4 +23,22 @@ public class JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_TIME))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256).compact();
     }
+
+    public String extractUsername(String token) {
+        return Jwts.parserBuilder().setSigningKey(getSignInKey())
+                .build().parseClaimsJws(token).getBody().getSubject();
+    }
+
+    private Date extractExpiration(String token) {
+        return Jwts.parserBuilder().setSigningKey(getSignInKey()).build()
+                .parseClaimsJws(token).getBody().getExpiration();
+    }
+
+    private boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    public boolean validateToken(String token, String username) {
+        return extractUsername(token).equals(username) && !isTokenExpired(token);
+    }
 }
