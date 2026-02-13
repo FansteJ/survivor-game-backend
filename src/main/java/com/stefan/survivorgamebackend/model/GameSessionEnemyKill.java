@@ -11,6 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"game_session_id", "enemy_type_id"}))
 public class GameSessionEnemyKill {
     @Id
     @GeneratedValue

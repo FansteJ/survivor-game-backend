@@ -31,6 +31,7 @@ public class UserProfile {
     private long gems;
 
     private int totalRuns;
+    private int levelReached;
 
     private LocalDateTime createdAt;
 
