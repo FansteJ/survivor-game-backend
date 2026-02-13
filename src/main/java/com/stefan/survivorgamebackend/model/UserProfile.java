@@ -1,11 +1,18 @@
 package com.stefan.survivorgamebackend.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class UserProfile {
     @Id
     @GeneratedValue
@@ -15,6 +22,9 @@ public class UserProfile {
     @JoinColumn
     private User user;
 
+    @OneToMany(mappedBy = "profile")
+    private List<GameSession> sessions;
+
     private int level;
     private long totalXp;
     private long gold;
@@ -23,4 +33,9 @@ public class UserProfile {
     private int totalRuns;
 
     private LocalDateTime createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+    }
 }
