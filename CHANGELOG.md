@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.3.0...v1.4.0) (2026-02-13)
+
+
+### Features
+
+* add GameSession, EnemyType, GameSessionEnemyKill and modify UserProfile (model classes) ([50bc082](https://github.com/FansteJ/survivor-game-backend/commit/50bc082d087238b78021ae381736a59c5e65c3fe))
+* add UserProfile (model) ([f92bf10](https://github.com/FansteJ/survivor-game-backend/commit/f92bf10e3f1f6c3ce43b0adeafaf7a7f059fdf8e))
+
 ## [1.3.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.2.0...v1.3.0) (2026-02-13)
 
 
