@@ -1,5 +1,7 @@
 package com.stefan.survivorgamebackend.controller;
 
+import com.stefan.survivorgamebackend.dto.LoginRequest;
+import com.stefan.survivorgamebackend.dto.LoginResponse;
 import com.stefan.survivorgamebackend.dto.RegisterRequest;
 import com.stefan.survivorgamebackend.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +24,12 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody RegisterRequest request){
         userService.register(request.getUsername(), request.getPassword());
         return ResponseEntity.ok("User registered successfully");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request){
+        String token = userService.login(request.getUsername(), request.getPassword());
+        LoginResponse loginResponse = new LoginResponse(token);
+        return ResponseEntity.ok(loginResponse);
     }
 }
