@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.4.0...v1.5.0) (2026-02-13)
+
+
+### Features
+
+* add EnemyTypeRepository, UserProfileRepository, GameSessionEnemyKillRepository and update FinishGameSessionService to calculate reward from game session and save it in database ([390087e](https://github.com/FansteJ/survivor-game-backend/commit/390087e1b385e4d608701c8d77ff26f760c6493f))
+* add FinishGameSessionRequest DTO and EnemyKillDTO ([a235938](https://github.com/FansteJ/survivor-game-backend/commit/a2359388fe52f16ec8985968e02881b0ed535a08))
+* add GameSessionRepository and FinishGameSessionService ([5eaae85](https://github.com/FansteJ/survivor-game-backend/commit/5eaae85203d9c766aa80635851119ef3f6f54ac6))
+
 ## [1.4.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.3.0...v1.4.0) (2026-02-13)
 
 
