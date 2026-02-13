@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.2.0...v1.3.0) (2026-02-13)
+
+
+### Features
+
+* add JwtAuthenticationFilter ([fbb2216](https://github.com/FansteJ/survivor-game-backend/commit/fbb2216fe2c55bf5fc661b51bca29b4490f1b63d))
+* add LoginResponse DTO, login endpoint ([bbbce32](https://github.com/FansteJ/survivor-game-backend/commit/bbbce32bbbc36e59c6000860f26d69bf3ba3b003))
+* modify JwtAuthenticationFilter and SecurityConfig to use JWT and add UserController to test ([419c3a1](https://github.com/FansteJ/survivor-game-backend/commit/419c3a1f7ec968fc6155947b819bcaa05b2849bb))
+
 ## [1.2.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.1.0...v1.2.0) (2026-02-12)
 
 
