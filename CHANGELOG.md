@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.6.0...v1.7.0) (2026-02-14)
+
+
+### Features
+
+* add EffectType enum, UpgradeType and UserUpgrade entities ([f5480ae](https://github.com/FansteJ/survivor-game-backend/commit/f5480aede5cb1c7a269d5f28c616e493fe3834c7))
+* add UserProfileController with getMyProfile endpoint ([961eaa1](https://github.com/FansteJ/survivor-game-backend/commit/961eaa1c0c351fb746d95adba73ef0b205f89ba4))
+
 ## [1.6.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.5.0...v1.6.0) (2026-02-14)
 
 
