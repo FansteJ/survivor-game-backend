@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.5.0...v1.6.0) (2026-02-14)
+
+
+### Features
+
+* add StartGameSessionService ([f6b0912](https://github.com/FansteJ/survivor-game-backend/commit/f6b09120c731f135ec4c86e63e09f437d84ed3e3))
+* add UserProfileService and UserProfileDTO ([53335b2](https://github.com/FansteJ/survivor-game-backend/commit/53335b29263a66f095530f1b3c0f8638279ff004))
+* optimize FinishGameSessionService ([246d0de](https://github.com/FansteJ/survivor-game-backend/commit/246d0de4ce74eb425f46422d727eed5eb3a70e6d))
+
 ## [1.5.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.4.0...v1.5.0) (2026-02-13)
 
 
