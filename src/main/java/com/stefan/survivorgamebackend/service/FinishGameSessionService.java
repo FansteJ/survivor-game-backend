@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,13 +57,18 @@ public class FinishGameSessionService {
     }
 
     private RewardResult calculateReward(GameSession session, List<EnemyKillDTO> enemiesKilled) {
-        Map<UUID, EnemyType> enemyTypeMap = enemyTypeRepository.findAll().stream()
+        List<UUID> killedEnemyIds = enemiesKilled.stream().map(EnemyKillDTO::getEnemyTypeId).toList();
+        List<EnemyType> relevantEnemies = enemyTypeRepository.findAllById(killedEnemyIds);
+
+        Map<UUID, EnemyType> enemyTypeMap = relevantEnemies.stream()
                 .collect(Collectors.toMap(EnemyType::getId, type -> type));
 
         long totalGoldEarned = 0;
         long totalXpEarned = 0;
         long totalGems = 0;
         int totalKills = 0;
+
+        List<GameSessionEnemyKill> killsToSave = new ArrayList<>();
         for(EnemyKillDTO kill : enemiesKilled) {
             EnemyType type = enemyTypeMap.get(kill.getEnemyTypeId());
             if(type == null) {
@@ -86,8 +88,9 @@ public class FinishGameSessionService {
             enemyKill.setGameSession(session);
             enemyKill.setType(type);
             enemyKill.setCount(kills);
-            killRepository.save(enemyKill);
+            killsToSave.add(enemyKill);
         }
+        killRepository.saveAll(killsToSave);
         return new RewardResult(totalGoldEarned, totalXpEarned, totalGems, totalKills);
     }
 }
