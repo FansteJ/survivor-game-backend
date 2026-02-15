@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.7.0...v1.8.0) (2026-02-15)
+
+
+### Features
+
+* add BuyUpgradeResponse DTO and UpgradeService ([e801cb2](https://github.com/FansteJ/survivor-game-backend/commit/e801cb213deb645c75af2c3c040bea840d5135a4))
+* add UpgradeShopItemDTO and ShopService ([ea6cea1](https://github.com/FansteJ/survivor-game-backend/commit/ea6cea130fbc1a4da030ff3e606b0400deb95c43))
+* add UpgradeTypeRepository and UserUpgradeRepository ([d2d1848](https://github.com/FansteJ/survivor-game-backend/commit/d2d1848f2a04cc72c82b5a5e26ac4f75f2b1b9f7))
+* optimize ShopService and add strategies to calculate item cost ([ea3844f](https://github.com/FansteJ/survivor-game-backend/commit/ea3844f49b30f571d46813b33a59642657c0b0f2))
+
 ## [1.7.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.6.0...v1.7.0) (2026-02-14)
 
 
