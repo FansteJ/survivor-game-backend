@@ -2,14 +2,10 @@ package com.stefan.survivorgamebackend.service;
 
 import com.stefan.survivorgamebackend.dto.PlayerModifiers;
 import com.stefan.survivorgamebackend.model.UpgradeType;
-import com.stefan.survivorgamebackend.model.User;
 import com.stefan.survivorgamebackend.model.UserProfile;
 import com.stefan.survivorgamebackend.model.UserUpgrade;
-import com.stefan.survivorgamebackend.repository.UserProfileRepository;
-import com.stefan.survivorgamebackend.repository.UserRepository;
 import com.stefan.survivorgamebackend.repository.UserUpgradeRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

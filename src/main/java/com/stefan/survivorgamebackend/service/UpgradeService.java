@@ -4,12 +4,9 @@ import com.stefan.survivorgamebackend.dto.BuyUpgradeResponse;
 import com.stefan.survivorgamebackend.model.*;
 import com.stefan.survivorgamebackend.repository.UpgradeTypeRepository;
 import com.stefan.survivorgamebackend.repository.UserProfileRepository;
-import com.stefan.survivorgamebackend.repository.UserRepository;
 import com.stefan.survivorgamebackend.repository.UserUpgradeRepository;
 import com.stefan.survivorgamebackend.service.strategy.CostCalculationStrategy;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +16,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UpgradeService {
-    private final UserRepository userRepository;
+    private final UserProfileService userProfileService;
+
     private final UserProfileRepository userProfileRepository;
     private final UpgradeTypeRepository upgradeTypeRepository;
     private final UserUpgradeRepository userUpgradeRepository;
@@ -27,13 +25,12 @@ public class UpgradeService {
     private final Map<ScalingType, CostCalculationStrategy> costStrategies;
 
     public UpgradeService(
-            UserRepository userRepository,
-            UserProfileRepository userProfileRepository,
+            UserProfileService userProfileService, UserProfileRepository userProfileRepository,
             UpgradeTypeRepository upgradeTypeRepository,
             UserUpgradeRepository userUpgradeRepository,
             List<CostCalculationStrategy> strategies
     ) {
-        this.userRepository = userRepository;
+        this.userProfileService = userProfileService;
         this.userProfileRepository = userProfileRepository;
         this.upgradeTypeRepository = upgradeTypeRepository;
         this.userUpgradeRepository = userUpgradeRepository;
@@ -44,10 +41,7 @@ public class UpgradeService {
 
     @Transactional
     public BuyUpgradeResponse buyUpgrade(UUID upgradeTypeId) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
-        UserProfile profile = userProfileRepository.findByUser(user)
-                .orElseThrow(() -> new RuntimeException("User profile not found"));
+        UserProfile profile = userProfileService.getCurrentProfile();
         UpgradeType upgradeType = upgradeTypeRepository.findById(upgradeTypeId)
                 .orElseThrow(() -> new RuntimeException("Upgrade type not found"));
         UserUpgrade upgrade = userUpgradeRepository.findByUserProfileAndUpgradeType(profile, upgradeType)

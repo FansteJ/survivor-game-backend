@@ -27,17 +27,9 @@ public class UserProfileService {
 
     public UserProfile getCurrentProfile(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<User> user = userRepository.findByUsername(username);
-        if (!user.isPresent()) {
-            throw new UsernameNotFoundException("User not found");
-        }
-
-        Optional<UserProfile> userProfile = userProfileRepository.findByUser(user.get());
-        if (!userProfile.isPresent()) {
-            throw new UsernameNotFoundException("User profile not found");
-        }
-
-        UserProfile profile = userProfile.get();
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        UserProfile profile = userProfileRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("User profile not found"));
         return profile;
     }
 }
