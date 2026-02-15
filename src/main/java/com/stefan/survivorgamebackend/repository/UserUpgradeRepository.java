@@ -5,9 +5,11 @@ import com.stefan.survivorgamebackend.model.UserProfile;
 import com.stefan.survivorgamebackend.model.UserUpgrade;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface UserUpgradeRepository extends JpaRepository<UserUpgrade, UUID> {
     Optional<UserUpgrade> findByUserProfileAndUpgradeType(UserProfile userProfile, UpgradeType upgradeType);
+    List<UserUpgrade> findByUserProfile(UserProfile userProfile);
 }

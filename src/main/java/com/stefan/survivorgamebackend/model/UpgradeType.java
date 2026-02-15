@@ -20,6 +20,11 @@ public class UpgradeType {
     @Enumerated(EnumType.STRING)
     private EffectType effectType;
 
+    @Enumerated(EnumType.STRING)
+    private ScalingType scalingType;
+
+    private double scalingFactor;
+
     private double value;
     private long baseCost;
     private int maxLevel;

@@ -13,8 +13,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -31,9 +31,15 @@ public class ShopService {
         UserProfile profile = userProfileRepository.findByUser(currentUser).orElseThrow(()
                 -> new RuntimeException("User profile not found"));
         List<UpgradeType> upgradeTypes = upgradeTypeRepository.findAll();
+        List<UserUpgrade> userUpgrades = userUpgradeRepository.findByUserProfile(profile);
+
+        Map<UUID, UserUpgrade> userUpgradeMap = userUpgrades.stream()
+                .collect(Collectors.toMap(u -> u.getUpgradeType().getId(), u -> u));
+
         List<UpgradeShopItemDTO> upgradeShopItems = new ArrayList<>();
+
         for(UpgradeType upgradeType : upgradeTypes) {
-            UserUpgrade upgrade = userUpgradeRepository.findByUserProfileAndUpgradeType(profile, upgradeType).orElse(null);
+            UserUpgrade upgrade = userUpgradeMap.get(upgradeType.getId());
             int level;
             if(upgrade != null) {
                 level = upgrade.getLevel();
