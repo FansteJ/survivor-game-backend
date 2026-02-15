@@ -7,10 +7,8 @@ import com.stefan.survivorgamebackend.repository.UserProfileRepository;
 import com.stefan.survivorgamebackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
