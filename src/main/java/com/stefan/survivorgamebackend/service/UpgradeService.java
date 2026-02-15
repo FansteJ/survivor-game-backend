@@ -58,7 +58,7 @@ public class UpgradeService {
         return new BuyUpgradeResponse(upgrade.getLevel(), profile.getGold());
     }
 
-    private long calculateCost(UpgradeType upgradeType, int level) {
+    public long calculateCost(UpgradeType upgradeType, int level) {
         return (long) (upgradeType.getBaseCost() * Math.pow(1.5, level));
     }
 }
