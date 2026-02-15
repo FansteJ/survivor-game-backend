@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.8.0...v1.9.0) (2026-02-15)
+
+
+### Features
+
+* add buyUpgrade endpoint and modify services to use getCurrentUser method from UserProfileService ([de90a08](https://github.com/FansteJ/survivor-game-backend/commit/de90a08bf47843a946840aa2d0bd6fe1b200f343))
+* add getShopItems endpoint ([e8d4774](https://github.com/FansteJ/survivor-game-backend/commit/e8d47743b3c0f74464b637a62ae9f0efab22aaed))
+* add PlayerModifiers DTO and UpgradeEffectService ([20e74b5](https://github.com/FansteJ/survivor-game-backend/commit/20e74b5496dc690627315d864dc43b8049999dae))
+* modify FinishGameSessionService to use PlayerModifiers and add PlayerController ([54b0308](https://github.com/FansteJ/survivor-game-backend/commit/54b030800d465eb0ae5f3531e9f9cdf5f372b2f7))
+
 ## [1.8.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.7.0...v1.8.0) (2026-02-15)
 
 
