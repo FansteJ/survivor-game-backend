@@ -18,7 +18,14 @@ public class UserProfileService {
     private final UserRepository userRepository;
     private final UserProfileRepository userProfileRepository;
 
-    public UserProfileDTO getMyProfile() {
+    public UserProfileDTO getMyProfileDTO() {
+        UserProfile profile = getCurrentProfile();
+
+        return new UserProfileDTO(profile.getId(), profile.getLevel(),
+                profile.getTotalXp(), profile.getGold(), profile.getGems(), profile.getTotalRuns(), profile.getLevelReached());
+    }
+
+    public UserProfile getCurrentProfile(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> user = userRepository.findByUsername(username);
         if (!user.isPresent()) {
@@ -31,8 +38,6 @@ public class UserProfileService {
         }
 
         UserProfile profile = userProfile.get();
-
-        return new UserProfileDTO(profile.getId(), profile.getLevel(),
-                profile.getTotalXp(), profile.getGold(), profile.getGems(), profile.getTotalRuns(), profile.getLevelReached());
+        return profile;
     }
 }

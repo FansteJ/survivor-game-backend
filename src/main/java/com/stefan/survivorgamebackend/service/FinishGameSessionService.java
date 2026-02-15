@@ -2,6 +2,7 @@ package com.stefan.survivorgamebackend.service;
 
 import com.stefan.survivorgamebackend.dto.EnemyKillDTO;
 import com.stefan.survivorgamebackend.dto.FinishGameSessionRequest;
+import com.stefan.survivorgamebackend.dto.PlayerModifiers;
 import com.stefan.survivorgamebackend.dto.RewardResult;
 import com.stefan.survivorgamebackend.model.EnemyType;
 import com.stefan.survivorgamebackend.model.GameSession;
@@ -24,6 +25,8 @@ public class FinishGameSessionService {
     private final GameSessionEnemyKillRepository killRepository;
     private final UserProfileRepository userProfileRepository;
 
+    private final UpgradeEffectService upgradeEffectService;
+
     @Transactional
     public void finishGameSession(FinishGameSessionRequest request) {
         Optional<GameSession> session =  gameSessionRepository.findById(request.getGameSessionId());
@@ -35,7 +38,9 @@ public class FinishGameSessionService {
             throw new RuntimeException("Game session is already finished");
         }
 
-        RewardResult reward = calculateReward(gameSession, request.getEnemiesKilled());
+        UserProfile profile = gameSession.getProfile();
+        PlayerModifiers modifiers = upgradeEffectService.calculateModifiers(profile);
+        RewardResult reward = calculateReward(gameSession, request.getEnemiesKilled(), modifiers);
 
         gameSession.setKills(reward.kills());
         gameSession.setGoldEarned(reward.gold());
@@ -45,7 +50,6 @@ public class FinishGameSessionService {
         gameSession.setGameOver(true);
         gameSession.setEndTime(LocalDateTime.now());
 
-        UserProfile profile = gameSession.getProfile();
         profile.setTotalRuns(profile.getTotalRuns() + 1);
         profile.setLevelReached(Math.max(profile.getLevelReached(), request.getLevelReached()));
         profile.setGold(profile.getGold() + reward.gold());
@@ -56,7 +60,7 @@ public class FinishGameSessionService {
         gameSessionRepository.save(gameSession);
     }
 
-    private RewardResult calculateReward(GameSession session, List<EnemyKillDTO> enemiesKilled) {
+    private RewardResult calculateReward(GameSession session, List<EnemyKillDTO> enemiesKilled, PlayerModifiers modifiers) {
         List<UUID> killedEnemyIds = enemiesKilled.stream().map(EnemyKillDTO::getEnemyTypeId).toList();
         List<EnemyType> relevantEnemies = enemyTypeRepository.findAllById(killedEnemyIds);
 
@@ -91,6 +95,6 @@ public class FinishGameSessionService {
             killsToSave.add(enemyKill);
         }
         killRepository.saveAll(killsToSave);
-        return new RewardResult(totalGoldEarned, totalXpEarned, totalGems, totalKills);
+        return new RewardResult((long) (totalGoldEarned * modifiers.goldMultiplier()), (long) (totalXpEarned * modifiers.xpMultiplier()), totalGems, totalKills);
     }
 }
