@@ -13,6 +13,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "user_profiles", indexes = {
+        @Index(name = "idx_leaderboard", columnList = "levelReached, totalXp")
+})
 public class UserProfile {
     @Id
     @GeneratedValue

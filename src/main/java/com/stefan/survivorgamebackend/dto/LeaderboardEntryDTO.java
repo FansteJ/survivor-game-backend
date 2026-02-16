@@ -1,4 +1,4 @@
 package com.stefan.survivorgamebackend.dto;
 
-public record LeaderboardEntryDTO(int rank, String username, int levelReached) {
+public record LeaderboardEntryDTO(long rank, String username, int levelReached) {
 }

@@ -17,19 +17,31 @@ import java.util.List;
 @AllArgsConstructor
 public class LeaderboardService {
     private final UserProfileRepository userProfileRepository;
+    private final UserProfileService userProfileService;
 
     public List<LeaderboardEntryDTO> getTopPlayers(int page, int size){
         List<LeaderboardEntryDTO> leaderboard = new ArrayList<>();
-        Pageable pageable = PageRequest.of(page, size, Sort.by("levelReached").descending());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("levelReached")
+                .descending().and(Sort.by("totalXp").descending()));
 
         Page<UserProfile> currentPage = userProfileRepository.findAll(pageable);
         List<UserProfile> profiles = currentPage.getContent();
 
-        int rank = page * size + 1;
+        long rank = ((long) page) * size + 1;
+        UserProfile myProfile = userProfileService.getCurrentProfile();
+        boolean alreadyRanked = false;
         for(UserProfile profile : profiles){
+            if(profile.getId().equals(myProfile.getId())){
+                alreadyRanked = true;
+            }
             LeaderboardEntryDTO entry = new LeaderboardEntryDTO(rank, profile.getUser().getUsername(), profile.getLevelReached());
             leaderboard.add(entry);
             rank++;
+        }
+        if(!alreadyRanked){
+            rank = userProfileRepository.countBetterPlayers(myProfile.getLevelReached(), myProfile.getTotalXp())+1;
+            LeaderboardEntryDTO entry = new LeaderboardEntryDTO(rank, myProfile.getUser().getUsername(), myProfile.getLevelReached());
+            leaderboard.add(entry);
         }
 
         return leaderboard;
