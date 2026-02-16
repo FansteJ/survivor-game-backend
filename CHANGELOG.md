@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.9.0...v1.10.0) (2026-02-16)
+
+
+### Features
+
+* add LeaderboardEntryDTO and LeaderboardService ([3f603be](https://github.com/FansteJ/survivor-game-backend/commit/3f603bef35a60a378a9325ae5c71e3cc5af142ca))
+* implement rank calculation for current profile ([8073ab5](https://github.com/FansteJ/survivor-game-backend/commit/8073ab5898869b83ab569c3c46ed1e32d8cf5b0b))
+
 ## [1.9.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.8.0...v1.9.0) (2026-02-15)
 
 
