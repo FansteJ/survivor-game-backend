@@ -1,9 +1,6 @@
 package com.stefan.survivorgamebackend.service;
 
-import com.stefan.survivorgamebackend.dto.EnemyKillDTO;
-import com.stefan.survivorgamebackend.dto.FinishGameSessionRequest;
-import com.stefan.survivorgamebackend.dto.PlayerModifiers;
-import com.stefan.survivorgamebackend.dto.RewardResult;
+import com.stefan.survivorgamebackend.dto.*;
 import com.stefan.survivorgamebackend.model.EnemyType;
 import com.stefan.survivorgamebackend.model.GameSession;
 import com.stefan.survivorgamebackend.model.GameSessionEnemyKill;
@@ -26,6 +23,7 @@ public class FinishGameSessionService {
     private final UserProfileRepository userProfileRepository;
 
     private final UpgradeEffectService upgradeEffectService;
+    private final QuestProgressService questProgressService;
 
     @Transactional
     public void finishGameSession(FinishGameSessionRequest request) {
@@ -55,6 +53,7 @@ public class FinishGameSessionService {
         profile.setGold(profile.getGold() + reward.gold());
         profile.setTotalXp(profile.getTotalXp() + reward.xp());
         profile.setGems(profile.getGems() + reward.gems());
+        questProgressService.updateQuestProgress(profile, new QuestProgressDTO(reward.kills(), reward.gold(), gameSession.getLevelReached()));
 
         userProfileRepository.save(profile);
         gameSessionRepository.save(gameSession);
