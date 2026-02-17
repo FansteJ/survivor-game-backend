@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.10.0...v1.11.0) (2026-02-17)
+
+
+### Features
+
+* add getDailyQuests, generateNewQuests and createQuestFromType methods in QuestService ([28210aa](https://github.com/FansteJ/survivor-game-backend/commit/28210aa5c1d8248619e269dd0782950dfc0b8657))
+* add QuestGoalType enum, QuestType and UserQuest entities ([0a52b34](https://github.com/FansteJ/survivor-game-backend/commit/0a52b345273dec09f65a87bb11a674563122fe19))
+* add QuestProgressDTO, UserQuestRepository and QuestProgressService with updateQuestProgress method ([906a24c](https://github.com/FansteJ/survivor-game-backend/commit/906a24ceed71c33a244cf1de00de90447a66d4c5))
+
 ## [1.10.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.9.0...v1.10.0) (2026-02-16)
 
 
