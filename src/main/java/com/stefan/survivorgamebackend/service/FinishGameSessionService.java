@@ -23,7 +23,7 @@ public class FinishGameSessionService {
     private final UserProfileRepository userProfileRepository;
 
     private final UpgradeEffectService upgradeEffectService;
-    private final QuestProgressService questProgressService;
+    private final QuestService questService;
 
     @Transactional
     public void finishGameSession(FinishGameSessionRequest request) {
@@ -53,7 +53,7 @@ public class FinishGameSessionService {
         profile.setGold(profile.getGold() + reward.gold());
         profile.setTotalXp(profile.getTotalXp() + reward.xp());
         profile.setGems(profile.getGems() + reward.gems());
-        questProgressService.updateQuestProgress(profile, new QuestProgressDTO(reward.kills(), reward.gold(), gameSession.getLevelReached()));
+        questService.updateQuestProgress(profile, new QuestProgressDTO(reward.kills(), reward.gold(), gameSession.getLevelReached()));
 
         userProfileRepository.save(profile);
         gameSessionRepository.save(gameSession);
