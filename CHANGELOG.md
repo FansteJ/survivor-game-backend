@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.11.0...v1.12.0) (2026-02-18)
+
+
+### Features
+
+* add claimReward method in QuestService and add QuestController ([ae14b43](https://github.com/FansteJ/survivor-game-backend/commit/ae14b43abc55d9feed1f1cd658f416505086c53c))
+* add GameController with startGame and finishGame endpoints ([aaee732](https://github.com/FansteJ/survivor-game-backend/commit/aaee73222f865fad464b4f58353a210f56e3ee80))
+
 ## [1.11.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.10.0...v1.11.0) (2026-02-17)
 
 
