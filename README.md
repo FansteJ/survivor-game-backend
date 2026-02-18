@@ -166,13 +166,10 @@ git clone https://github.com/FansteJ/survivor-game-backend.git
 
 2. Configure PostgreSQL database
 
-3. Update `application.properties`:
-
-```
-spring.datasource.url=jdbc:postgresql://localhost:5432/survivor
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-```
+3. Rename `application.properties.example` to `application.properties`.
+   Then edit `application.properties` and fill in your values:
+      - PostgreSQL username and password
+      - JWT secret key (generate with: openssl rand -base64 32)
 
 4. Run the project
 
