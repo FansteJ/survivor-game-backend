@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.12.0...v1.13.0) (2026-02-18)
+
+
+### Features
+
+* update JwtService and SECRET_KEY ([404a82f](https://github.com/FansteJ/survivor-game-backend/commit/404a82f2adb3f2858cd3e5a822d4c112cc7e9dce))
+
 ## [1.12.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.11.0...v1.12.0) (2026-02-18)
 
 
