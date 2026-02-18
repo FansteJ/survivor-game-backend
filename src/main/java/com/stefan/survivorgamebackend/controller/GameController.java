@@ -1,10 +1,8 @@
 package com.stefan.survivorgamebackend.controller;
 
 import com.stefan.survivorgamebackend.dto.FinishGameSessionRequest;
-import com.stefan.survivorgamebackend.model.UserProfile;
 import com.stefan.survivorgamebackend.service.FinishGameSessionService;
 import com.stefan.survivorgamebackend.service.StartGameSessionService;
-import com.stefan.survivorgamebackend.service.UserProfileService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
