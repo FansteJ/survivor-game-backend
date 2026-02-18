@@ -5,6 +5,7 @@ import com.stefan.survivorgamebackend.model.QuestType;
 import com.stefan.survivorgamebackend.model.UserProfile;
 import com.stefan.survivorgamebackend.model.UserQuest;
 import com.stefan.survivorgamebackend.repository.QuestTypeRepository;
+import com.stefan.survivorgamebackend.repository.UserProfileRepository;
 import com.stefan.survivorgamebackend.repository.UserQuestRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 public class QuestService {
     private final UserQuestRepository userQuestRepository;
     private final QuestTypeRepository questTypeRepository;
+    private final UserProfileRepository userProfileRepository;
 
     private static final int DAILY_QUEST_COUNT = 3;
 
@@ -98,5 +101,26 @@ public class QuestService {
         if(changed) {
             userQuestRepository.saveAll(quests);
         }
+    }
+
+    @Transactional
+    public void claimReward(UUID questId, UserProfile profile) {
+        UserQuest userQuest = userQuestRepository.findById(questId).orElse(null);
+        if(userQuest == null) {
+            throw new RuntimeException("Quest not found");
+        }
+        if(!userQuest.getProfile().getId().equals(profile.getId())) {
+            throw new RuntimeException("You cannot claim this quest");
+        }
+        if(userQuest.isClaimed()){
+            throw new RuntimeException("Quest is already claimed");
+        }
+        if(!userQuest.isCompleted()){
+            throw new RuntimeException("Quest is not completed");
+        }
+        userQuest.setClaimed(true);
+        profile.setGems(profile.getGems() + userQuest.getQuestType().getRewardGems());
+        userQuestRepository.save(userQuest);
+        userProfileRepository.save(profile);
     }
 }
