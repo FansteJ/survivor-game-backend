@@ -9,5 +9,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UserQuestRepository extends JpaRepository<UserQuest, UUID> {
-    List<UserQuest> findAllByUserProfileAndDate(UserProfile profile, LocalDate date);
+    List<UserQuest> findAllByProfileAndDate(UserProfile profile, LocalDate date);
 }

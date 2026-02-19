@@ -31,7 +31,7 @@ public class QuestService {
     public List<UserQuest> getDailyQuests(UserProfile profile) {
         LocalDate today = LocalDate.now();
 
-        List<UserQuest> dailyQuests = userQuestRepository.findAllByUserProfileAndDate(profile, today);
+        List<UserQuest> dailyQuests = userQuestRepository.findAllByProfileAndDate(profile, today);
         if(!dailyQuests.isEmpty()) {
             return dailyQuests;
         }
