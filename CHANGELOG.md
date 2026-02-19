@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.13.1...v1.14.0) (2026-02-19)
+
+
+### Features
+
+* add ProgressionService and modify UserProfileDTO ([c121e86](https://github.com/FansteJ/survivor-game-backend/commit/c121e8697f5165eaecb219a5853fd0b288e91f3e))
+* add username to UserProfileDTO ([5347889](https://github.com/FansteJ/survivor-game-backend/commit/5347889f2a8ecc0acf448ebe858c2778cb7c220f))
+
 ### [1.13.1](https://github.com/FansteJ/survivor-game-backend/compare/v1.13.0...v1.13.1) (2026-02-19)
 
 
