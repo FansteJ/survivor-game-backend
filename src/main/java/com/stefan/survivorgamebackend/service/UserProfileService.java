@@ -19,7 +19,7 @@ public class UserProfileService {
     public UserProfileDTO getMyProfileDTO() {
         UserProfile profile = getCurrentProfile();
 
-        return new UserProfileDTO(profile.getId(), profile.getLevel(),
+        return new UserProfileDTO(profile.getId(), profile.getUser().getUsername(), profile.getLevel(),
                 profile.getTotalXp(), profile.getGold(), profile.getGems(), profile.getTotalRuns(), profile.getLevelReached());
     }
 
