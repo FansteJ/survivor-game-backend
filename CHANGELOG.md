@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.1](https://github.com/FansteJ/survivor-game-backend/compare/v1.13.0...v1.13.1) (2026-02-19)
+
+
+### Bug Fixes
+
+* fix query in UserQuestRepository ([7a0082b](https://github.com/FansteJ/survivor-game-backend/commit/7a0082bdbdee4889c4e729ce1df99b2ef12dd878))
+
 ## [1.13.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.12.0...v1.13.0) (2026-02-18)
 
 
