@@ -15,12 +15,18 @@ import org.springframework.stereotype.Service;
 public class UserProfileService {
     private final UserRepository userRepository;
     private final UserProfileRepository userProfileRepository;
+    private ProgressionService progressionService;
 
     public UserProfileDTO getMyProfileDTO() {
         UserProfile profile = getCurrentProfile();
 
-        return new UserProfileDTO(profile.getId(), profile.getUser().getUsername(), profile.getLevel(),
-                profile.getTotalXp(), profile.getGold(), profile.getGems(), profile.getTotalRuns(), profile.getLevelReached());
+        long totalXp = profile.getTotalXp();
+        int level = progressionService.calculateLevel(totalXp);
+        long currentXp = progressionService.xpInCurrentLevel(totalXp);
+        long neededXp = progressionService.xpNeededForNextLevel(totalXp);
+
+        return new UserProfileDTO(profile.getId(), profile.getUser().getUsername(), level, currentXp,
+                neededXp, profile.getGold(), profile.getGems(), profile.getTotalRuns(), profile.getLevelReached());
     }
 
     public UserProfile getCurrentProfile(){

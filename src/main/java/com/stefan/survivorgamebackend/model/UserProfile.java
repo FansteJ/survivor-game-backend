@@ -28,7 +28,6 @@ public class UserProfile {
     @OneToMany(mappedBy = "profile")
     private List<GameSession> sessions;
 
-    private int level;
     private long totalXp;
     private long gold;
     private long gems;
