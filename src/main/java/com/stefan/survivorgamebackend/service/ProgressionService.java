@@ -10,7 +10,7 @@ public class ProgressionService {
 
     public int calculateLevel(long totalXp){
         if(totalXp < BASE_XP){
-            return 1;
+            return 0;
         }
 
         return (int) Math.sqrt((double) totalXp / BASE_XP);

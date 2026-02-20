@@ -1,6 +1,8 @@
 package com.stefan.survivorgamebackend.service;
 
 import com.stefan.survivorgamebackend.model.User;
+import com.stefan.survivorgamebackend.model.UserProfile;
+import com.stefan.survivorgamebackend.repository.UserProfileRepository;
 import com.stefan.survivorgamebackend.repository.UserRepository;
 import com.stefan.survivorgamebackend.security.JwtService;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,18 +16,25 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final UserProfileRepository userProfileRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, UserProfileRepository userProfileRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
+        this.userProfileRepository = userProfileRepository;
     }
 
     public void register(String username, String password) {
         if(userRepository.findByUsername(username).isPresent()) {
             throw new RuntimeException("Username already exists");
         }
-        userRepository.save(new User(username, passwordEncoder.encode(password)));
+        User user = new User(username, passwordEncoder.encode(password));
+        userRepository.save(user);
+
+        UserProfile profile = new UserProfile();
+        profile.setUser(user);
+        userProfileRepository.save(profile);
     }
 
     public String login(String username, String password) {
