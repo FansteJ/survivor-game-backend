@@ -1,4 +1,4 @@
 package com.stefan.survivorgamebackend.dto;
 
-public record QuestProgressDTO(int enemiesKilled, long goldEarned, int levelReached) {
+public record QuestProgressDTO(int enemiesKilled, long goldEarned, int levelReached, int duration) {
 }

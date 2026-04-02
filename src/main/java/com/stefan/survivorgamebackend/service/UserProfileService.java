@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class UserProfileService {
     private final UserRepository userRepository;
     private final UserProfileRepository userProfileRepository;
-    private ProgressionService progressionService;
+    private final ProgressionService progressionService;
 
     public UserProfileDTO getMyProfileDTO() {
         UserProfile profile = getCurrentProfile();

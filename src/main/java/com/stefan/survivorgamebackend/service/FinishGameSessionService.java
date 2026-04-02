@@ -24,9 +24,10 @@ public class FinishGameSessionService {
 
     private final UpgradeEffectService upgradeEffectService;
     private final QuestService questService;
+    private final ProgressionService progressionService;
 
     @Transactional
-    public void finishGameSession(FinishGameSessionRequest request) {
+    public UserProfileDTO finishGameSession(FinishGameSessionRequest request) {
         Optional<GameSession> session =  gameSessionRepository.findById(request.getGameSessionId());
         if (!session.isPresent()) {
             throw new RuntimeException("Game session not found");
@@ -53,17 +54,34 @@ public class FinishGameSessionService {
         profile.setGold(profile.getGold() + reward.gold());
         profile.setTotalXp(profile.getTotalXp() + reward.xp());
         profile.setGems(profile.getGems() + reward.gems());
-        questService.updateQuestProgress(profile, new QuestProgressDTO(reward.kills(), reward.gold(), gameSession.getLevelReached()));
+        questService.updateQuestProgress(profile, new QuestProgressDTO(reward.kills(), reward.gold(), gameSession.getLevelReached(), gameSession.getDurationSeconds()));
 
         userProfileRepository.save(profile);
         gameSessionRepository.save(gameSession);
+
+        long totalXp = profile.getTotalXp();
+        int level = progressionService.calculateLevel(totalXp);
+        long currentXp = progressionService.xpInCurrentLevel(totalXp);
+        long neededXp = progressionService.xpNeededForNextLevel(totalXp);
+
+        return new UserProfileDTO(
+                profile.getId(),
+                profile.getUser().getUsername(),
+                level,
+                currentXp,
+                neededXp,
+                profile.getGold(),
+                profile.getGems(),
+                profile.getTotalRuns(),
+                profile.getLevelReached()
+        );
     }
 
     private RewardResult calculateReward(GameSession session, List<EnemyKillDTO> enemiesKilled, PlayerModifiers modifiers) {
-        List<UUID> killedEnemyIds = enemiesKilled.stream().map(EnemyKillDTO::getEnemyTypeId).toList();
+        List<String> killedEnemyIds = enemiesKilled.stream().map(EnemyKillDTO::getEnemyTypeId).toList();
         List<EnemyType> relevantEnemies = enemyTypeRepository.findAllById(killedEnemyIds);
 
-        Map<UUID, EnemyType> enemyTypeMap = relevantEnemies.stream()
+        Map<String, EnemyType> enemyTypeMap = relevantEnemies.stream()
                 .collect(Collectors.toMap(EnemyType::getId, type -> type));
 
         long totalGoldEarned = 0;

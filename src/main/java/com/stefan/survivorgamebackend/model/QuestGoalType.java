@@ -4,5 +4,7 @@ public enum QuestGoalType {
     KILL_ENEMIES,
     PLAY_RUN,
     REACH_LEVEL,
-    EARN_GOLD;
+    KILL_GHOSTS,
+    SURVIVE_TIME,
+    COLLECT_GOLD;
 }

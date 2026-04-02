@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,8 +19,17 @@ public class StartGameSessionService {
     @Transactional
     public UUID startGameSession() {
         UserProfile profile = userProfileService.getCurrentProfile();
-        if(gameSessionRepository.existsGameSessionsByProfileAndGameOverFalse(profile)) {
-            throw new RuntimeException("Active game session already exists");
+        Optional<GameSession> activeSessionOpt = gameSessionRepository.findByProfileAndGameOverFalse(profile);
+
+        if (activeSessionOpt.isPresent()) {
+            GameSession abandonedSession = activeSessionOpt.get();
+            abandonedSession.setGameOver(true);
+
+            abandonedSession.setDurationSeconds(0);
+            abandonedSession.setGoldEarned(0);
+            abandonedSession.setXpEarned(0);
+
+            gameSessionRepository.save(abandonedSession);
         }
 
         GameSession gameSession = new GameSession();

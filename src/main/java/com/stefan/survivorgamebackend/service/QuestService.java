@@ -79,11 +79,17 @@ public class QuestService {
                 case KILL_ENEMIES -> {
                     newProgress += progress.enemiesKilled();
                 }
-                case EARN_GOLD -> {
+                case COLLECT_GOLD -> {
                     newProgress += progress.goldEarned();
                 }
                 case REACH_LEVEL -> {
                     newProgress = Math.max(quest.getProgress(), progress.levelReached());
+                }
+                case KILL_GHOSTS -> {
+                    newProgress += progress.enemiesKilled();
+                }
+                case SURVIVE_TIME -> {
+                    newProgress += progress.duration();
                 }
             }
             long goal = quest.getQuestType().getGoal();

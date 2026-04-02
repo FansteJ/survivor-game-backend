@@ -1,6 +1,7 @@
 package com.stefan.survivorgamebackend.controller;
 
 import com.stefan.survivorgamebackend.dto.FinishGameSessionRequest;
+import com.stefan.survivorgamebackend.dto.UserProfileDTO;
 import com.stefan.survivorgamebackend.service.FinishGameSessionService;
 import com.stefan.survivorgamebackend.service.StartGameSessionService;
 import lombok.AllArgsConstructor;
@@ -25,8 +26,8 @@ public class GameController {
     }
 
     @PostMapping("/finish")
-    public ResponseEntity<?> finishGame(@RequestBody FinishGameSessionRequest finishGameSessionRequest) {
-        finishGameSessionService.finishGameSession(finishGameSessionRequest);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<UserProfileDTO> finishGame(@RequestBody FinishGameSessionRequest finishGameSessionRequest) {
+        UserProfileDTO updatedProfile = finishGameSessionService.finishGameSession(finishGameSessionRequest);
+        return ResponseEntity.ok(updatedProfile);
     }
 }
