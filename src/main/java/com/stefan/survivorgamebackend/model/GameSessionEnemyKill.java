@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"game_session_id", "enemy_type_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"game_session_id", "enemy_type_id", "loop_number"}))
 public class GameSessionEnemyKill {
     @Id
     @GeneratedValue
@@ -24,6 +24,9 @@ public class GameSessionEnemyKill {
     @ManyToOne
     @JoinColumn(name = "enemy_type_id")
     private EnemyType type;
+
+    @Column(name = "loop_number", nullable = false)
+    private int loopNumber = 1;
 
     private int count;
 }

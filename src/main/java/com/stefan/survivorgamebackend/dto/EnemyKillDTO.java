@@ -10,4 +10,5 @@ import lombok.Setter;
 public class EnemyKillDTO {
     private String enemyTypeId;
     private int count;
+    private int loopNumber = 1;
 }

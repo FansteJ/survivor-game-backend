@@ -97,9 +97,14 @@ public class FinishGameSessionService {
             }
 
             int kills = kill.getCount();
-            long gold = kills * type.getBaseGold();
-            long xp = kills * type.getBaseXp();
-            long gems = kills * type.getBaseGems();
+            int loop = kill.getLoopNumber();
+            if (loop < 1) loop = 1;
+
+            double loopMultiplier = 1.0 + (loop - 1) * 0.5;
+
+            long gold = (long) (kills * type.getBaseGold() * loopMultiplier);
+            long xp = (long) (kills * type.getBaseXp() * loopMultiplier);
+            long gems = (long) (kills * type.getBaseGems() * loopMultiplier);
             totalGoldEarned += gold;
             totalXpEarned += xp;
             totalKills += kills;
@@ -108,6 +113,7 @@ public class FinishGameSessionService {
             GameSessionEnemyKill enemyKill = new GameSessionEnemyKill();
             enemyKill.setGameSession(session);
             enemyKill.setType(type);
+            enemyKill.setLoopNumber(loop);
             enemyKill.setCount(kills);
             killsToSave.add(enemyKill);
         }
