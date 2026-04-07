@@ -19,7 +19,7 @@ public class UpgradeEffectService {
         double goldMultiplier = 1.0;
         double xpMultiplier = 1.0;
         double damageMultiplier = 1.0;
-        double luckMultiplier = 1.0;
+        double luckMultiplier = 0;
         double startHpBonus = 0.0;
         int revives = 0;
         double speedBonus = 0.0;

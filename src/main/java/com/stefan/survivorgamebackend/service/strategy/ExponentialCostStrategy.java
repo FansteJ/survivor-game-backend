@@ -12,6 +12,6 @@ public class ExponentialCostStrategy implements CostCalculationStrategy {
 
     @Override
     public ScalingType getType() {
-        return null;
+        return ScalingType.EXPONENTIAL;
     }
 }

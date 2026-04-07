@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +39,7 @@ public class UpgradeService {
     }
 
     @Transactional
-    public BuyUpgradeResponse buyUpgrade(UUID upgradeTypeId) {
+    public BuyUpgradeResponse buyUpgrade(String upgradeTypeId) {
         UserProfile profile = userProfileService.getCurrentProfile();
         UpgradeType upgradeType = upgradeTypeRepository.findById(upgradeTypeId)
                 .orElseThrow(() -> new RuntimeException("Upgrade type not found"));
@@ -71,6 +70,15 @@ public class UpgradeService {
     }
 
     public long calculateCost(UpgradeType upgradeType, int level) {
+        ScalingType typeFromDb = upgradeType.getScalingType();
+
+        // DEBUG LOGOVI
+        System.out.println("================ DEBUG POČETAK ================");
+        System.out.println("Obrađujem upgrade ID: " + upgradeType.getId());
+        System.out.println("ScalingType izvučen iz baze: " + typeFromDb);
+        System.out.println("Dostupne strategije u mapi: " + costStrategies.keySet());
+        System.out.println("================ DEBUG KRAJ ================");
+
         CostCalculationStrategy strategy = costStrategies.get(upgradeType.getScalingType());
         if(strategy == null) {
             throw new RuntimeException("Unknown scaling type");

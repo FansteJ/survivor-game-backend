@@ -34,7 +34,7 @@ public class PlayerController {
     }
 
     @PostMapping("/upgrades/{upgradeId}/buy")
-    public ResponseEntity<BuyUpgradeResponse> buyUpgrade(@PathVariable UUID upgradeId) {
+    public ResponseEntity<BuyUpgradeResponse> buyUpgrade(@PathVariable String upgradeId) {
         return ResponseEntity.ok(upgradeService.buyUpgrade(upgradeId));
     }
 }

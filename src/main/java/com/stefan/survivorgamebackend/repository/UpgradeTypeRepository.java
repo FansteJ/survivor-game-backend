@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface UpgradeTypeRepository extends JpaRepository<UpgradeType, UUID> {
+public interface UpgradeTypeRepository extends JpaRepository<UpgradeType, String> {
 }

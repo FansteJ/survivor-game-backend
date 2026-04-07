@@ -11,8 +11,7 @@ import java.util.UUID;
 @Setter
 public class QuestType {
     @Id
-    @GeneratedValue
-    private UUID id;
+    private String id;
 
     private String name;
     private String description;

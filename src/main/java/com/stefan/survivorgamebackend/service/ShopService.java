@@ -25,7 +25,7 @@ public class ShopService {
         List<UpgradeType> upgradeTypes = upgradeTypeRepository.findAll();
         List<UserUpgrade> userUpgrades = userUpgradeRepository.findByUserProfile(profile);
 
-        Map<UUID, UserUpgrade> userUpgradeMap = userUpgrades.stream()
+        Map<String, UserUpgrade> userUpgradeMap = userUpgrades.stream()
                 .collect(Collectors.toMap(u -> u.getUpgradeType().getId(), u -> u));
 
         List<UpgradeShopItemDTO> upgradeShopItems = new ArrayList<>();
@@ -40,8 +40,16 @@ public class ShopService {
             }
             long cost = upgradeService.calculateCost(upgradeType, level);
             boolean canBuy = cost <= profile.getGold() && level<upgradeType.getMaxLevel();
+            String description;
+            double currentVal = upgradeType.getValue() * level;
+            double nextVal = upgradeType.getValue() * (level + 1);
+            if(level == upgradeType.getMaxLevel()){
+                description = upgradeType.getDescription() + ": " + currentVal;
+            } else {
+                description = upgradeType.getDescription() + ": " + currentVal + " -> " + nextVal;
+            }
             upgradeShopItems.add(new UpgradeShopItemDTO(upgradeType.getId(), upgradeType.getName()
-                    , upgradeType.getDescription(), upgradeType.getEffectType(), upgradeType.getValue() * (level+1),
+                    , description, upgradeType.getEffectType(), nextVal,
                     level, upgradeType.getMaxLevel(), cost, canBuy));
         }
         return upgradeShopItems;
