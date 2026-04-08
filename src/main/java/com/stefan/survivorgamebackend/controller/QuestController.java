@@ -1,6 +1,7 @@
 package com.stefan.survivorgamebackend.controller;
 
 
+import com.stefan.survivorgamebackend.dto.ClaimRewardResponse;
 import com.stefan.survivorgamebackend.model.UserProfile;
 import com.stefan.survivorgamebackend.model.UserQuest;
 import com.stefan.survivorgamebackend.service.QuestService;
@@ -26,12 +27,12 @@ public class QuestController {
     }
 
     @PostMapping("/{id}/claim")
-    public ResponseEntity<String> claimQuestReward(@PathVariable UUID id) {
+    public ResponseEntity<?> claimQuestReward(@PathVariable UUID id) {
         UserProfile profile = userProfileService.getCurrentProfile();
 
         try{
-            questService.claimReward(id, profile);
-            return ResponseEntity.ok("Claimed!");
+            long newGems = questService.claimReward(id, profile);
+            return ResponseEntity.ok(new ClaimRewardResponse(newGems));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

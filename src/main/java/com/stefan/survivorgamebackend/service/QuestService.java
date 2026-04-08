@@ -89,7 +89,8 @@ public class QuestService {
                     newProgress += progress.enemiesKilled();
                 }
                 case SURVIVE_TIME -> {
-                    newProgress += progress.duration();
+                    if(progress.duration() > quest.getQuestType().getGoal())
+                        newProgress += progress.duration();
                 }
             }
             long goal = quest.getQuestType().getGoal();
@@ -108,7 +109,7 @@ public class QuestService {
     }
 
     @Transactional
-    public void claimReward(UUID questId, UserProfile profile) {
+    public long claimReward(UUID questId, UserProfile profile) {
         UserQuest userQuest = userQuestRepository.findById(questId).orElse(null);
         if(userQuest == null) {
             throw new RuntimeException("Quest not found");
@@ -123,8 +124,11 @@ public class QuestService {
             throw new RuntimeException("Quest is not completed");
         }
         userQuest.setClaimed(true);
-        profile.setGems(profile.getGems() + userQuest.getQuestType().getRewardGems());
+        long newGemBalance = profile.getGems() + userQuest.getQuestType().getRewardGems();
+        profile.setGems(newGemBalance);
         userQuestRepository.save(userQuest);
         userProfileRepository.save(profile);
+
+        return newGemBalance;
     }
 }

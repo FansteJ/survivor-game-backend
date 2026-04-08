@@ -1,5 +1,6 @@
 package com.stefan.survivorgamebackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class UserQuest {
 
     @ManyToOne
     @JoinColumn(name = "profile_id")
+    @JsonIgnore
     private UserProfile profile;
 
     @ManyToOne

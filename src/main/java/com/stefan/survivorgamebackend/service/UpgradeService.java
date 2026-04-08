@@ -72,13 +72,6 @@ public class UpgradeService {
     public long calculateCost(UpgradeType upgradeType, int level) {
         ScalingType typeFromDb = upgradeType.getScalingType();
 
-        // DEBUG LOGOVI
-        System.out.println("================ DEBUG POČETAK ================");
-        System.out.println("Obrađujem upgrade ID: " + upgradeType.getId());
-        System.out.println("ScalingType izvučen iz baze: " + typeFromDb);
-        System.out.println("Dostupne strategije u mapi: " + costStrategies.keySet());
-        System.out.println("================ DEBUG KRAJ ================");
-
         CostCalculationStrategy strategy = costStrategies.get(upgradeType.getScalingType());
         if(strategy == null) {
             throw new RuntimeException("Unknown scaling type");

@@ -54,7 +54,7 @@ public class FinishGameSessionService {
         profile.setGold(profile.getGold() + reward.gold());
         profile.setTotalXp(profile.getTotalXp() + reward.xp());
         profile.setGems(profile.getGems() + reward.gems());
-        questService.updateQuestProgress(profile, new QuestProgressDTO(reward.kills(), reward.gold(), gameSession.getLevelReached(), gameSession.getDurationSeconds()));
+        questService.updateQuestProgress(profile, new QuestProgressDTO(reward.kills(), request.getGoldEarned(), gameSession.getLevelReached(), gameSession.getDurationSeconds()));
 
         userProfileRepository.save(profile);
         gameSessionRepository.save(gameSession);

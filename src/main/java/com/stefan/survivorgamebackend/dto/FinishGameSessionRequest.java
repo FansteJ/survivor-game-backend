@@ -14,5 +14,6 @@ public class FinishGameSessionRequest {
     private UUID gameSessionId;
     private int durationSeconds;
     private int levelReached;
+    private long goldEarned;
     private List<EnemyKillDTO> enemiesKilled;
 }
