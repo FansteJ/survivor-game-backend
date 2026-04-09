@@ -7,5 +7,5 @@ public enum EffectType {
     START_HP,
     REVIVE,
     START_SPEED,
-    LUCK_MULTIPLIER,
+    LUCK_MULTIPLIER, HP_REGEN, LIFESTEAL,
 }

@@ -23,6 +23,8 @@ public class UpgradeEffectService {
         double startHpBonus = 0.0;
         int revives = 0;
         double speedBonus = 0.0;
+        double hpRegen = 0.0;
+        double lifesteal = 0.0;
 
         List<UserUpgrade> upgrades = userUpgradeRepository.findByUserProfile(profile);
 
@@ -50,12 +52,18 @@ public class UpgradeEffectService {
                 case LUCK_MULTIPLIER:
                     luckMultiplier += upgrade.getLevel() * type.getValue();
                     break;
+                case HP_REGEN:
+                    hpRegen += upgrade.getLevel() * type.getValue();
+                    break;
+                case LIFESTEAL:
+                    lifesteal += upgrade.getLevel() * type.getValue();
+                    break;
                 default:
                     break;
             }
         }
 
         return new PlayerModifiers(goldMultiplier, xpMultiplier, damageMultiplier,
-                startHpBonus, revives, luckMultiplier, speedBonus);
+                startHpBonus, revives, luckMultiplier, speedBonus, hpRegen, lifesteal);
     }
 }

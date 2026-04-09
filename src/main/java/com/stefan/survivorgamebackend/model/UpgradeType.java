@@ -20,6 +20,9 @@ public class UpgradeType {
     @Enumerated(EnumType.STRING)
     private ScalingType scalingType;
 
+    @Enumerated(EnumType.STRING)
+    private CurrencyType currencyType = CurrencyType.GOLD;
+
     private double scalingFactor;
 
     private double value;

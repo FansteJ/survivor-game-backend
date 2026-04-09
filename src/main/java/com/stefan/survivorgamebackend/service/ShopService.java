@@ -1,6 +1,7 @@
 package com.stefan.survivorgamebackend.service;
 
 import com.stefan.survivorgamebackend.dto.UpgradeShopItemDTO;
+import com.stefan.survivorgamebackend.model.CurrencyType;
 import com.stefan.survivorgamebackend.model.UpgradeType;
 import com.stefan.survivorgamebackend.model.UserProfile;
 import com.stefan.survivorgamebackend.model.UserUpgrade;
@@ -39,7 +40,11 @@ public class ShopService {
                 level = 0;
             }
             long cost = upgradeService.calculateCost(upgradeType, level);
-            boolean canBuy = cost <= profile.getGold() && level<upgradeType.getMaxLevel();
+            boolean hasEnoughCurrency = upgradeType.getCurrencyType() == CurrencyType.GOLD
+                    ? profile.getGold() >= cost
+                    : profile.getGems() >= cost;
+
+            boolean canBuy = hasEnoughCurrency && level < upgradeType.getMaxLevel();
             String description;
             double currentVal = upgradeType.getValue() * level;
             double nextVal = upgradeType.getValue() * (level + 1);
@@ -49,7 +54,8 @@ public class ShopService {
                 description = upgradeType.getDescription() + ": " + currentVal + " -> " + nextVal;
             }
             upgradeShopItems.add(new UpgradeShopItemDTO(upgradeType.getId(), upgradeType.getName()
-                    , description, upgradeType.getEffectType(), nextVal,
+                    , description, upgradeType.getEffectType(),
+                    upgradeType.getCurrencyType(), nextVal,
                     level, upgradeType.getMaxLevel(), cost, canBuy));
         }
         return upgradeShopItems;

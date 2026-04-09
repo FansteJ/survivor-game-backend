@@ -57,8 +57,17 @@ public class UpgradeService {
             throw new RuntimeException("Upgrade level exceeds max level");
         }
         long cost = calculateCost(upgradeType, level);
-        if(cost > gold){
-            throw new RuntimeException("Not enough gold for upgrade");
+
+        if (upgradeType.getCurrencyType() == CurrencyType.GOLD) {
+            if(cost > profile.getGold()){
+                throw new RuntimeException("Not enough gold for upgrade");
+            }
+            profile.setGold(profile.getGold() - cost);
+        } else if (upgradeType.getCurrencyType() == CurrencyType.GEMS) {
+            if(cost > profile.getGems()){
+                throw new RuntimeException("Not enough gems for upgrade");
+            }
+            profile.setGems(profile.getGems() - cost);
         }
 
         profile.setGold(gold - cost);
@@ -66,12 +75,10 @@ public class UpgradeService {
         userProfileRepository.save(profile);
         userUpgradeRepository.save(upgrade);
 
-        return new BuyUpgradeResponse(upgrade.getLevel(), profile.getGold());
+        return new BuyUpgradeResponse(upgrade.getLevel(), profile.getGold(), profile.getGems());
     }
 
     public long calculateCost(UpgradeType upgradeType, int level) {
-        ScalingType typeFromDb = upgradeType.getScalingType();
-
         CostCalculationStrategy strategy = costStrategies.get(upgradeType.getScalingType());
         if(strategy == null) {
             throw new RuntimeException("Unknown scaling type");
