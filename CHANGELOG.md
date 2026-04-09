@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.14.0...v1.15.0) (2026-04-09)
+
+
+### Features
+
+* add data.sql and modify finishGameSession to return UserProfileDTO ([b63037b](https://github.com/FansteJ/survivor-game-backend/commit/b63037b888c25cc6e3b46d96ef7c695da9328e08))
+* add user profile creation when creating a new user ([deebff6](https://github.com/FansteJ/survivor-game-backend/commit/deebff6704291deeabbf067f3eb7cb7730788fba))
+* modify GameSessionKill and modify calculating rewards ([25fc87d](https://github.com/FansteJ/survivor-game-backend/commit/25fc87dafb533f8fc98693cc39aff393d952b57f))
+* modify leaderboard logic ([aa2f16b](https://github.com/FansteJ/survivor-game-backend/commit/aa2f16b7f1a0e0a2ddc045fa8c4e5d86d8508eed))
+* modify quest logic ([3d56b6c](https://github.com/FansteJ/survivor-game-backend/commit/3d56b6c98bb269a61b52f4889052342ca0221c6b))
+* modify upgrade logic ([e0a2f17](https://github.com/FansteJ/survivor-game-backend/commit/e0a2f170227fa1bf92f29d37bb7102479c49fba9))
+* modify upgrades, fix strategy null bug ([541dd69](https://github.com/FansteJ/survivor-game-backend/commit/541dd690740d3ae79d82c100946c539bfc082483))
+
 ## [1.14.0](https://github.com/FansteJ/survivor-game-backend/compare/v1.13.1...v1.14.0) (2026-02-19)
 
 
