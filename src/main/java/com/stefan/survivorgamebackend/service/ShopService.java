@@ -10,6 +10,7 @@ import com.stefan.survivorgamebackend.repository.UserUpgradeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,7 @@ public class ShopService {
                 .collect(Collectors.toMap(u -> u.getUpgradeType().getId(), u -> u));
 
         List<UpgradeShopItemDTO> upgradeShopItems = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#.##");
 
         for(UpgradeType upgradeType : upgradeTypes) {
             UserUpgrade upgrade = userUpgradeMap.get(upgradeType.getId());
@@ -45,14 +47,11 @@ public class ShopService {
                     : profile.getGems() >= cost;
 
             boolean canBuy = hasEnoughCurrency && level < upgradeType.getMaxLevel();
-            String description;
             double currentVal = upgradeType.getValue() * level;
             double nextVal = upgradeType.getValue() * (level + 1);
-            if(level == upgradeType.getMaxLevel()){
-                description = upgradeType.getDescription() + ": " + currentVal;
-            } else {
-                description = upgradeType.getDescription() + ": " + currentVal + " -> " + nextVal;
-            }
+            String description = (level == upgradeType.getMaxLevel())
+                    ? String.format("%s: %s", upgradeType.getDescription(), df.format(currentVal))
+                    : String.format("%s: %s -> %s", upgradeType.getDescription(), df.format(currentVal), df.format(nextVal));
             upgradeShopItems.add(new UpgradeShopItemDTO(upgradeType.getId(), upgradeType.getName()
                     , description, upgradeType.getEffectType(),
                     upgradeType.getCurrencyType(), nextVal,
